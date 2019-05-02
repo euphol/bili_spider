@@ -28,11 +28,11 @@ async def factorial(task_name, num):
 
 #并发
 async def main():
-	results = await asyncio.gather(
-			factorial('A', 2),
+	tasks = [factorial('A', 2),
 			factorial('B', 3),
-			factorial('C', 5),
-		)
-	print(results)
+			factorial('C', 5)]
+	result = await asyncio.gather(*tasks)
+	print(result)
 
-asyncio.run(main())
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
